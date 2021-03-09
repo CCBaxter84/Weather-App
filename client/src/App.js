@@ -7,7 +7,8 @@ import Pages from './components/Pages';
 function App() {
 
   useEffect(() => {
-    axios.get('/denver')
+    console.log(process.env.test);
+    axios.get('/entries/denver')
       .then(response => console.log(response))
       .catch(error => console.log(error));
   }, []);

@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 // Import and init mongoose model
-const Entry = require('../models/entry.js');
+const Entry = require('../../models/entry.js');
 
 // @route   GET /entries/:city
 // @desc    Get all entries from database based off city

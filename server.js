@@ -2,7 +2,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 require('dotenv').config();
-const entries = require('./routes/entries.js');
+const entries = require('./routes/api/entries.js');
+const openWeather = require('./routes/openWeather/apiCalls.js')
 
 // Initialize app
 const app = express();
@@ -23,6 +24,7 @@ mongoose.connect(db, settings)
 
 // Use routes
 app.use('/entries', entries);
+app.use('/openWeather', openWeather);
 
 // Start server
 const port = process.env.PORT || 5000;
