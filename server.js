@@ -3,12 +3,11 @@ const express = require('express');
 const mongoose = require('mongoose');
 require('dotenv').config();
 const entries = require('./routes/entries.js');
-console.log(typeof entries);
 
 // Initialize app
 const app = express();
 
-// Use body parsing
+// Use body parsing & cors
 app.use(express.json());
 
 // Connect to database
