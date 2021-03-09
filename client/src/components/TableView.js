@@ -1,7 +1,16 @@
-function TableView() {
+import PropTypes from 'prop-types';
+import Table from './Table.js';
+
+function TableView({ data }) {
   return (
-    <div>Table View</div>
+    <section>
+      {data.map(entry => <Table entry={entry}/>)}
+    </section>
   );
+}
+
+TableView.propTypes = {
+  data: PropTypes.array
 }
 
 export default TableView;

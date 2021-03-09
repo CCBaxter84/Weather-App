@@ -2,9 +2,9 @@ import { Route, Switch } from 'react-router-dom';
 import Home from './Home';
 import TableView from './TableView';
 import ChartView from './ChartView';
-import Track from './Track';
+import PropTypes from 'prop-types';
 
-function Pages() {
+function Pages({data}) {
   return (
     <main>
       <Switch>
@@ -12,17 +12,18 @@ function Pages() {
           <Home/>
         </Route>
         <Route exact path='/TableView'>
-          <TableView />
+          <TableView data={data}/>
         </Route>
         <Route exact path='/ChartView'>
-          <ChartView />
-        </Route>
-        <Route exact path='/Track'>
-          <Track />
+          <ChartView data={data}/>
         </Route>
       </Switch>
     </main>
   );
+}
+
+Pages.propTypes = {
+  data: PropTypes.array
 }
 
 export default Pages;

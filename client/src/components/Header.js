@@ -6,7 +6,7 @@ function Header() {
       <NavButton name='Home' path='/'/>
       <NavButton name='Table View' path='/TableView'/>
       <NavButton name='Chart View' path='/ChartView'/>
-      <NavButton name='Track' path='/Track'/>
+      <button onClick={() => console.log('Modal pops up')}>Track</button>
     </header>
   );
 }
