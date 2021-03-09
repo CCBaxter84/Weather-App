@@ -13,8 +13,8 @@ router.get('/:city', async (req, res) => {
     const city = req.params.city;
     const entries = await Entry.find({ city: city }).sort({ date: 1 });
     res.status(200).json(entries);
-  } catch(err) {
-    res.status(500).json({ msg: err });
+  } catch(error) {
+    res.status(500).json({ msg: error });
   }
 });
 
@@ -32,18 +32,35 @@ router.post('/', async (req, res) => {
     });
     const entry = await newEntry.save();
     res.status(201).json({ msg: 'Entry added to database' });
-  } catch(err) {
-    res.status(500).json({ msg: err });
+  } catch(error) {
+    res.status(500).json({ msg: error });
   }
 });
 
-// @route   PUT /entries
+// @route   PATCH /entries
 // @desc    Update an existing entry in the database
 // @access  Public
+router.patch('/:id', async (req, res) => {
+  try {
+    const response = await Entry.replaceOne({ _id: req.params.id }, { [req.body.key]: req.body.value });
+    res.status(202).json({ msg: 'Entry updated' });
+  } catch(error) {
+    res.status(500).json({ msg: error });
+  }
+});
 
 // @route   DELETE /entries
 // @desc    Delete a specific entry based on id
 // @access  Public
+router.delete('/:id', async (req, res) => {
+  try {
+    const entryToDelete = await Entry.findById(req.params.id);
+    const entry = await entryToDelete.delete();
+    res.status();
+  } catch(error) {
+    res.status(500).json({ msg: error });
+  }
+});
 
 // Export router
 module.exports = router;
