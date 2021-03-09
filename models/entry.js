@@ -1,3 +1,4 @@
+// Import and initialize mongoose
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
@@ -29,5 +30,5 @@ const entrySchema = new Schema({
   }
 });
 
-// Export model
+// Export model based off schema
 module.exports = Entry = mongoose.model('entry', entrySchema);
