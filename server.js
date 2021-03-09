@@ -2,7 +2,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 require('dotenv').config();
-const entries = './routes/entries.js';
+const entries = require('./routes/entries.js');
+console.log(typeof entries);
 
 // Initialize app
 const app = express();
@@ -17,8 +18,7 @@ const settings = {
   useNewUrlParser: true,
   useUnifiedTopology: true
 };
-mongoose
-  .connect(db, settings)
+mongoose.connect(db, settings)
   .then(() => console.log('MongoDB Connected'))
   .catch(err => console.log(err));
 
