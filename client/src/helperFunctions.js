@@ -30,9 +30,5 @@ module.exports = {
     const finalMinutes = addZero(minutes);
 
     return `${month}-${date}-${year} ${finalHours}:${finalMinutes} ${amOrPM}`;
-  },
-
-  kelvinConverter: temp => {
-    return Math.round((temp - 273.15) * 9 / 5 + 32, 2);
   }
 }
