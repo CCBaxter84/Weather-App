@@ -4,7 +4,7 @@ import TableView from './TableView';
 import ChartView from './ChartView';
 import PropTypes from 'prop-types';
 
-function Pages({data}) {
+function Pages({ data, setField, city }) {
   return (
     <main>
       <Switch>
@@ -12,7 +12,11 @@ function Pages({data}) {
           <Home/>
         </Route>
         <Route exact path='/TableView'>
-          <TableView data={data}/>
+          <TableView
+            data={data}
+            setField={setField}
+            city={city}
+          />
         </Route>
         <Route exact path='/ChartView'>
           <ChartView data={data}/>
@@ -23,7 +27,9 @@ function Pages({data}) {
 }
 
 Pages.propTypes = {
-  data: PropTypes.array
+  data: PropTypes.array,
+  setField: PropTypes.func,
+  city: PropTypes.string
 }
 
 export default Pages;

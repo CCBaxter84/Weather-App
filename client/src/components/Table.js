@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { dateTimePrettier } from '../helperFunctions.js';
@@ -13,19 +12,10 @@ const TableData = styled.td`
 const Input = styled.input`
   border: none;
   text-align: right;
-  width: 20px;
+  width: 25px;
 `;
 
-function Table({ entry }) {
-  const [ temp, setTemp ] = useState(entry.temperature);
-  const [ feelsLike, setFeelsLike ] = useState(entry.feelsLike);
-  const [ humidity, setHumidity ] = useState(entry.humidity);
-  const [ windSpeed, setWindSpeed ] = useState(entry.windSpeed);
-  const [ dateTime, setDateTime ] = useState(dateTimePrettier(entry.dateTime));
-
-  const handleClick = event => {
-    console.log('clicked');
-  }
+function Table({ entry, setField }) {
 
   return (
     <table>
@@ -35,8 +25,8 @@ function Table({ entry }) {
           <TableData>
             <Input
               type='text'
-              value={temp}
-              onChange={e => setTemp(e.target.value)}
+              value={entry.temperature}
+              onChange={e => setField('temperature', e.target.value, entry._id)}
             />&#176;F
           </TableData>
         </tr>
@@ -45,8 +35,8 @@ function Table({ entry }) {
           <TableData>
             <Input
               type='text'
-              value={feelsLike}
-              onChange={e => setFeelsLike(e.target.value)}
+              value={entry.feelsLike}
+              onChange={e => setField('feelsLike', e.target.value, entry._id)}
             />&#176;F
           </TableData>
         </tr>
@@ -55,8 +45,8 @@ function Table({ entry }) {
           <TableData>
             <Input
               type='text'
-              value={humidity}
-              onChange={e => setHumidity(e.target.value)}
+              value={entry.humidity}
+              onChange={e => setField('humidity', e.target.value, entry._id)}
             />%
           </TableData>
         </tr>
@@ -65,14 +55,14 @@ function Table({ entry }) {
           <TableData>
             <Input
               type='text'
-              value={windSpeed}
-              onChange={e => setWindSpeed(e.target.value)}
+              value={entry.windSpeed}
+              onChange={e => setField('windSpeed', e.target.value, entry._id)}
             />mph
           </TableData>
         </tr>
         <tr>
           <TableField>Date / Time</TableField>
-          <TableData>{dateTime}</TableData>
+          <TableData>{dateTimePrettier(entry.dateTime)}</TableData>
         </tr>
       </tbody>
     </table>

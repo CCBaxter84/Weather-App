@@ -10,7 +10,7 @@ const Entry = require('../../models/entry.js');
 // @access  Public
 router.get('/:city', async (req, res) => {
   try {
-    const city = req.params.city;
+    const city = req.params.city.toLowerCase();
     const entries = await Entry.find({ city: city }).sort({ date: 1 });
     res.status(200).json(entries);
   } catch(error) {
@@ -27,7 +27,7 @@ router.post('/', async (req, res) => {
       temperature: req.body.temperature,
       feelsLike: req.body.feelsLike,
       humidity: req.body.humidity,
-      city: req.body.city,
+      city: req.body.city.toLowerCase(),
       windSpeed: req.body.windSpeed
     });
     const entry = await newEntry.save();

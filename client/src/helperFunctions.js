@@ -1,4 +1,62 @@
 module.exports = {
+  reducer: (state, action) => {
+    let updatedState;
+    switch (action.type) {
+      case 'temperature':
+        updatedState = state.map(entry => {
+          if (action.id === entry._id) {
+            return {...entry, temperature: action.value};
+          }
+          return entry;
+        });
+        return updatedState;
+      case 'feelsLike':
+        updatedState = state.map(entry => {
+          if (action.id === entry._id) {
+            return { ...entry, feelsLike: action.value };
+          }
+          return entry;
+        });
+        return updatedState;
+      case 'humidity':
+        updatedState = state.map(entry => {
+          if (action.id === entry._id) {
+            return { ...entry, humidity: action.value };
+          }
+          return entry;
+        });
+        return updatedState;
+      case 'city':
+        updatedState = state.map(entry => {
+          if (action.id === entry._id) {
+            return { ...entry, city: action.value };
+          }
+          return entry;
+        });
+        return updatedState;
+      case 'windSpeed':
+        updatedState = state.map(entry => {
+          if (action.id === entry._id) {
+            return { ...entry, windSpeed: action.value };
+          }
+          return entry;
+        });
+        return updatedState;
+      case 'dateTime':
+        updatedState = state.map(entry => {
+          if (action.id === entry._id) {
+            return { ...entry, dateTime: action.value };
+          }
+          return entry;
+        });
+        return updatedState;
+      case 'setAll':
+        return action.value;
+      default:
+        return state;
+    }
+  },
+
   hotOrCold: (temp, windSpeed) => {
     if (temp < 50 && windSpeed > 5) {
       return 'Wind Chill';
