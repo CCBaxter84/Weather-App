@@ -19,7 +19,7 @@ function Pages({ data, setField, city }) {
           />
         </Route>
         <Route exact path='/ChartView'>
-          <ChartView data={data}/>
+          {data.length > 0 ? <ChartView data={data} city={city}/> : '...Loading Chart'}
         </Route>
       </Switch>
     </main>

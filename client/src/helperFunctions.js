@@ -1,3 +1,10 @@
+const data = require('./database');
+const getWeatherCategory = (cat, dataset) => {
+  return dataset.map(entry => entry[cat]);
+}
+
+console.log('Temp', getWeatherCategory('temperature', data));
+
 module.exports = {
   reducer: (state, action) => {
     let updatedState;
@@ -88,5 +95,12 @@ module.exports = {
     const finalMinutes = addZero(minutes);
 
     return `${month}-${date}-${year} ${finalHours}:${finalMinutes} ${amOrPM}`;
+  },
+
+  getWeatherCategory: (cat, dataset = []) => {
+    if (!dataset || dataset.length === 0) {
+      return [];
+    }
+    return dataset.map(entry => entry[cat]);
   }
 }
