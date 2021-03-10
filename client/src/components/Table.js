@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { dateTimePrettier } from '../helperFunctions.js';
+import { dateTimePrettier } from '../helpers.js';
 
 const TableField = styled.th`
   color: blue;

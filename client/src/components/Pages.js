@@ -6,23 +6,21 @@ import PropTypes from 'prop-types';
 
 function Pages({ data, setField, city }) {
   return (
-    <main>
-      <Switch>
-        <Route exact path='/'>
-          <Home/>
-        </Route>
-        <Route exact path='/TableView'>
-          <TableView
-            data={data}
-            setField={setField}
-            city={city}
-          />
-        </Route>
-        <Route exact path='/ChartView'>
-          {data.length > 0 ? <ChartView data={data} city={city}/> : '...Loading Chart'}
-        </Route>
-      </Switch>
-    </main>
+    <Switch>
+      <Route exact path='/'>
+        <Home/>
+      </Route>
+      <Route exact path='/TableView'>
+        <TableView
+          data={data}
+          setField={setField}
+          city={city}
+        />
+      </Route>
+      <Route exact path='/ChartView'>
+        {data.length > 0 ? <ChartView data={data} city={city}/> : '...Loading Chart'}
+      </Route>
+    </Switch>
   );
 }
 

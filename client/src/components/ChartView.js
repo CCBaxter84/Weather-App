@@ -1,7 +1,8 @@
 import { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { Line } from 'react-chartjs-2';
-import { getWeatherCategory, dateTimePrettier } from '../helperFunctions.js';
+import { Container, Title } from '../sharedStyles.js';
+import { getWeatherCategory, dateTimePrettier } from '../helpers.js';
 
 function ChartView({ data, city }) {
   const labels = useMemo(() => getWeatherCategory('dateTime', data), [data]);
@@ -58,15 +59,17 @@ function ChartView({ data, city }) {
   }
 
   return (
-    <section>
-      <div>{city}</div>
+    <Container>
+      <Title>
+        <h2>{city} Weather</h2>
+      </Title>
       <Line
         data={chartData}
         width={100}
         height={50}
         options={options}
       />
-    </section>
+    </Container>
   );
 }
 

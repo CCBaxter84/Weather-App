@@ -26,7 +26,7 @@ router.get('/:city', async (req, res) => {
 
     }
     res.status(200).json({ data: usefulData });
-  } catch(error) {
+  } catch (error) {
     res.status(500).json({ msg:error });
   }
 });

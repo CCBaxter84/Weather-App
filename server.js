@@ -8,7 +8,7 @@ const openWeather = require('./routes/openWeather/apiCalls.js')
 // Initialize app
 const app = express();
 
-// Use body parsing & cors
+// Use body parsing
 app.use(express.json());
 
 // Connect to database

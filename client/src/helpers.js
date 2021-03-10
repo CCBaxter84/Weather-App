@@ -1,10 +1,3 @@
-const data = require('./database');
-const getWeatherCategory = (cat, dataset) => {
-  return dataset.map(entry => entry[cat]);
-}
-
-console.log('Temp', getWeatherCategory('temperature', data));
-
 module.exports = {
   reducer: (state, action) => {
     let updatedState;

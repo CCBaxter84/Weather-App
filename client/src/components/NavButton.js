@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
+import { StyledButton } from '../sharedStyles.js';
 import { Link } from 'react-router-dom';
 
 function NavButton({ name, path }) {
   return (
     <Link to={path}>
-      <button>{name}</button>
+      <StyledButton>{name}</StyledButton>
     </Link>
   );
 }

@@ -13,7 +13,7 @@ router.get('/:city', async (req, res) => {
     const city = req.params.city.toLowerCase();
     const entries = await Entry.find({ city: city }).sort({ date: 1 });
     res.status(200).json(entries);
-  } catch(error) {
+  } catch (error) {
     res.status(500).json({ msg: error });
   }
 });
@@ -32,7 +32,7 @@ router.post('/', async (req, res) => {
     });
     const entry = await newEntry.save();
     res.status(201).json({ msg: 'Entry added to database' });
-  } catch(error) {
+  } catch (error) {
     res.status(500).json({ msg: error });
   }
 });
@@ -46,7 +46,7 @@ router.patch('/:id', async (req, res) => {
     const value = Object.values(req.body)[0];
     const response = await Entry.updateOne({ _id: req.params.id }, { [field]: value });
     res.status(202).json({ msg: 'Entry updated' });
-  } catch(error) {
+  } catch (error) {
     res.status(500).json({ msg: error });
   }
 });
@@ -59,7 +59,7 @@ router.delete('/:id', async (req, res) => {
     const entryToDelete = await Entry.findById(req.params.id);
     const entry = await entryToDelete.delete();
     res.status(200).json({ msg: 'Entry deleted from database'});
-  } catch(error) {
+  } catch (error) {
     res.status(500).json({ msg: error });
   }
 });

@@ -1,13 +1,15 @@
 import { useReducer, useEffect, useState } from 'react';
 import axios from 'axios';
-import { reducer } from './helperFunctions';
+import { reducer } from './helpers';
 import Header from './components/Header';
 import Pages from './components/Pages';
+import Track from './components/Track';
 import weatherData from './database.js';
 
 function App() {
   const [ data, dispatch ] = useReducer(reducer, []);
   const [ city, setCity ] = useState('Denver');
+  const [ showModal, setShowModal ] = useState(false);
 
   useEffect(() => {
     axios.get(`/entries/${city}`)
@@ -25,10 +27,23 @@ function App() {
       .catch(error => console.log(error));
   }
 
+  function openModal() {
+    setShowModal(true);
+  }
+
+  function closeModal() {
+    setShowModal(false);
+  }
+
+  function changeCity(newCity) {
+    setCity(newCity);
+  }
+
   return (
    <>
-    <Header />
+    <Header openModal={openModal}/>
     <Pages data={data} setField={setField} city={city}/>
+    {showModal && <Track closeModal={closeModal} changeCity={changeCity}/>}
    </>
   );
 }
