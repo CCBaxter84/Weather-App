@@ -4,7 +4,7 @@ import Table from './Table.js';
 function TableView({ data }) {
   return (
     <section>
-      {data.map(entry => <Table entry={entry}/>)}
+      {data.map(entry => <Table key={entry.id} entry={entry}/>)}
     </section>
   );
 }

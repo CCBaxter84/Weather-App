@@ -1,24 +1,36 @@
 import PropTypes from 'prop-types';
+import { hotOrCold, dateTimePrettier, kelvinConverter } from '../helperFunctions.js';
 
 function Table({ entry }) {
+  const temperature = kelvinConverter(entry.temperature);
+  const feelsLike = kelvinConverter(entry.windSpeed);
+  const indexOrChill = hotOrCold(temperature, entry.windSpeed);
+  const date = dateTimePrettier(entry.dateTime);
+
   return (
     <table>
-      <tr>
-        <th>Temperature</th>
-        <tr>{entry.temperature}</tr>
-      </tr>
-      <tr>
-        <th>Heat Index | Wind Chill</th>
-        <tr>{entry.feelsLike}</tr>
-      </tr>
-      <tr>
-        <th>Humidity</th>
-        <tr>{entry.windSpeed}</tr>
-      </tr>
-      <tr>
-        <th>Date and Time</th>
-        <tr>{entry.dateTime}</tr>
-      </tr>
+      <tbody>
+        <tr>
+          <th>Temperature</th>
+          <td>{temperature}</td>
+        </tr>
+        <tr>
+          <th>{indexOrChill}</th>
+          <td>{feelsLike}</td>
+        </tr>
+        <tr>
+          <th>Humidity</th>
+          <td>{`${entry.humidity}%`}</td>
+        </tr>
+        <tr>
+          <th>Wind Speed</th>
+          <td>{`${entry.windSpeed} mph`}</td>
+        </tr>
+        <tr>
+          <th>Date / Time</th>
+          <td>{date}</td>
+        </tr>
+      </tbody>
     </table>
   );
 }
