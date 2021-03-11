@@ -20,9 +20,17 @@ function App() {
   }, [city, showModal]);
 
   function setField(field, value, id) {
+    const isEmpty = value === '';
+    const updatedValue = isEmpty ? 0 : value;
+
+    if (isANumber(value) || isEmpty) {
       dispatch( {type: field, value: value, id: id} );
-      axios.patch(`/entries/${id}`, { [field]: value})
+      axios.patch(`/entries/${id}`, { [field]: updatedValue})
         .catch(error => console.log(error));
+    } else {
+      setError('Entry must be a number');
+      setTimeout(() => setError(''), 3000);
+    }
   }
 
   function changeModal(bool) {
@@ -37,7 +45,7 @@ function App() {
    <>
     <Header changeModal={changeModal}/>
     <Pages data={data} setField={setField} city={city} error={error}/>
-    {showModal && <Track changeModal={changeModal} changeCity={changeCity}/>}
+    {showModal && <Track changeModal={changeModal} changeCity={changeCity} />}
    </>
   );
 }

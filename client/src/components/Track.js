@@ -2,6 +2,7 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import axios from 'axios';
+import { formatCityForAPI, formatCityForUI, containsInvalidChars } from '../helpers.js';
 
 const ModalBackground = styled.section`
   background-color: rgba(0, 0, 0, 0.5);
@@ -55,7 +56,13 @@ function Track({ changeModal, changeCity }) {
 
   async function handleSubmit(event) {
     event.preventDefault();
+    if (containsInvalidChars(newCity)) {
+      console.log('hold on to your butts');
+      return;
+    }
     try {
+      await console.log( formatCityForUI(newCity) );
+      await console.log( formatCityForAPI(newCity) );
       const weatherData = await axios.get(`/openWeather/${newCity}`);
       const { data } = weatherData.data;
       await axios.post(`/entries`, data);

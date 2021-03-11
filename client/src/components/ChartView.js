@@ -5,15 +5,18 @@ import { Container, Title } from '../sharedStyles.js';
 import { getWeatherCategory, dateTimePrettier } from '../helpers.js';
 
 function ChartView({ data, city }) {
-  const labels = useMemo(() => getWeatherCategory('dateTime', data), [data]);
-  const prettyLabels = useMemo(() => labels.map(entry => dateTimePrettier(entry)), [data]);
+  const labels = useMemo(() => {
+    const uglyLabels = getWeatherCategory('dateTime', data);
+    const prettyLabels = uglyLabels.map(entry => dateTimePrettier(entry));
+    return prettyLabels;
+  }, [data]);
   const temperature = useMemo(() => getWeatherCategory('temperature', data), [data]);
   const feelsLike = useMemo(() => getWeatherCategory('feelsLike', data), [data]);
   const humidity = useMemo(() => getWeatherCategory('humidity', data), [data]);
   const windSpeed = useMemo(() => getWeatherCategory('windSpeed', data), [data]);
 
   const chartData = {
-    labels: prettyLabels,
+    labels: labels,
     datasets: [
       {
         label: 'Temperature in F',

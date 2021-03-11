@@ -10,12 +10,18 @@ const InnerContainer = styled.section`
   margin: 10px;
 `;
 
+const ErrorArticle = styled.article`
+  color: red;
+  font-family: 'Roboto', sans-serif;
+`;
+
 function TableView({ data, setField, city, error }) {
   return (
     <Container>
       <InnerContainer>
         {data.map(entry => <Table key={entry._id} entry={entry} setField={setField} error={error}/>)}
       </InnerContainer>
+      {error.length > 0 && <ErrorArticle><h2>{error}!</h2></ErrorArticle>}
     </Container>
   );
 }
