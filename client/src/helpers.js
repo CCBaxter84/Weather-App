@@ -95,5 +95,7 @@ module.exports = {
       return [];
     }
     return dataset.map(entry => entry[cat]);
-  }
+  },
+
+  isANumber: input => typeof input === 'number'
 }

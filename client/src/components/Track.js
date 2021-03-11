@@ -2,7 +2,6 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import axios from 'axios';
-import { StyledButton, Title } from '../sharedStyles.js';
 
 const ModalBackground = styled.section`
   background-color: rgba(0, 0, 0, 0.5);
@@ -30,18 +29,6 @@ const ModalContent = styled.section`
 
 const ModalArticle = styled.article`
   font-family: 'Lato', sans-serif;
-  font-size: 20px;
-`;
-
-const ModalPara = styled.p`
-  background-color: lightsteelblue;
-  border: 2px solid #bd0d77;
-  border-radius: 5px;
-  box-shadow: 0 0 20px #bd0d77;
-  font-size: 30px;
-  font-weight: bold;
-  padding: 10px;
-  text-align: center;
 `;
 
 const SubmitInput = styled.input`
@@ -56,13 +43,13 @@ const SubmitInput = styled.input`
   }
 `;
 
-function Track({ closeModal, changeCity }) {
+function Track({ changeModal, changeCity }) {
   const [ newCity, setNewCity ] = useState('');
 
   function handleClick(event) {
     const name = event.target.getAttribute('name');
     if (name === 'background') {
-      closeModal();
+      changeModal(false);
     }
   }
 
@@ -71,9 +58,10 @@ function Track({ closeModal, changeCity }) {
     try {
       const weatherData = await axios.get(`/openWeather/${newCity}`);
       const { data } = weatherData.data;
-      const response = await axios.post(`/entries`, data);
+      await axios.post(`/entries`, data);
+      changeModal(false);
       changeCity(newCity);
-      closeModal();
+
     } catch (error) {
       console.log(error);
     }
@@ -101,7 +89,7 @@ function Track({ closeModal, changeCity }) {
 }
 
 Track.propTypes = {
-  closeModal: PropTypes.func,
+  changeModal: PropTypes.func,
   setCity: PropTypes.func
 }
 

@@ -8,19 +8,19 @@ const StyledHeader = styled.header`
   justify-content: center;
 `;
 
-function Header({ openModal }) {
+function Header({ changeModal }) {
   return (
     <StyledHeader>
       <NavButton name='Home' path='/'/>
       <NavButton name='Table View' path='/TableView'/>
       <NavButton name='Chart View' path='/ChartView'/>
-      <StyledButton onClick={openModal}>Track</StyledButton>
+      <StyledButton onClick={() => changeModal(true)}>Track</StyledButton>
     </StyledHeader>
   );
 }
 
 Header.propTypes = {
-  openModal: PropTypes.func
+  changeModal: PropTypes.func
 }
 
 export default Header;

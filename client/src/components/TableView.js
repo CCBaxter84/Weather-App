@@ -1,11 +1,21 @@
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { Container } from '../sharedStyles.js';
 import Table from './Table.js';
 
-function TableView({ data, setField, city }) {
+const InnerContainer = styled.section`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 10px;
+`;
+
+function TableView({ data, setField, city, error }) {
   return (
     <Container>
-      {data.map(entry => <Table key={entry._id} entry={entry} setField={setField} />)}
+      <InnerContainer>
+        {data.map(entry => <Table key={entry._id} entry={entry} setField={setField} error={error}/>)}
+      </InnerContainer>
     </Container>
   );
 }
@@ -13,7 +23,8 @@ function TableView({ data, setField, city }) {
 TableView.propTypes = {
   data: PropTypes.array,
   setField: PropTypes.func,
-  city: PropTypes.string
+  city: PropTypes.string,
+  error: PropTypes.string
 }
 
 export default TableView;

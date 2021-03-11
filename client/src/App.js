@@ -1,38 +1,32 @@
 import { useReducer, useEffect, useState } from 'react';
 import axios from 'axios';
-import { reducer } from './helpers';
+import { reducer, isANumber } from './helpers';
 import Header from './components/Header';
 import Pages from './components/Pages';
 import Track from './components/Track';
-import weatherData from './database.js';
 
 function App() {
   const [ data, dispatch ] = useReducer(reducer, []);
   const [ city, setCity ] = useState('Denver');
   const [ showModal, setShowModal ] = useState(false);
+  const [ error, setError ] = useState('');
 
   useEffect(() => {
     axios.get(`/entries/${city}`)
       .then(res => {
-        console.log(res);
         dispatch({ type: 'setAll', value: res.data })
       })
       .catch(error => console.log(error));
-  }, [city]);
+  }, [city, showModal]);
 
   function setField(field, value, id) {
-    dispatch( {type: field, value: value, id: id} );
-    axios.patch(`/entries/${id}`, { [field]: value})
-      .then(res => console.log(res))
-      .catch(error => console.log(error));
+      dispatch( {type: field, value: value, id: id} );
+      axios.patch(`/entries/${id}`, { [field]: value})
+        .catch(error => console.log(error));
   }
 
-  function openModal() {
-    setShowModal(true);
-  }
-
-  function closeModal() {
-    setShowModal(false);
+  function changeModal(bool) {
+    setShowModal(bool);
   }
 
   function changeCity(newCity) {
@@ -41,9 +35,9 @@ function App() {
 
   return (
    <>
-    <Header openModal={openModal}/>
-    <Pages data={data} setField={setField} city={city}/>
-    {showModal && <Track closeModal={closeModal} changeCity={changeCity}/>}
+    <Header changeModal={changeModal}/>
+    <Pages data={data} setField={setField} city={city} error={error}/>
+    {showModal && <Track changeModal={changeModal} changeCity={changeCity}/>}
    </>
   );
 }

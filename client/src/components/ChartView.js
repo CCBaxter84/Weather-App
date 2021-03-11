@@ -16,28 +16,28 @@ function ChartView({ data, city }) {
     labels: prettyLabels,
     datasets: [
       {
-        label: 'Temperature',
+        label: 'Temperature in F',
         data: temperature,
         fill: false,
         backgroundColor: 'rgb(255, 99, 132)',
         borderColor: 'rgba(255, 99, 132, 0.2)'
       },
       {
-        label: 'Feels Like',
+        label: 'Feels Like in F',
         data: feelsLike,
         fill: false,
         backgroundColor: 'rgb(132, 99, 255)',
         borderColor: 'rgba(132, 99, 255, 0.2)'
       },
       {
-        label: 'Humidity',
+        label: 'Humidity %',
         data: humidity,
         fill: false,
         backgroundColor: 'rgb(60, 179, 113)',
         borderColor: 'rgba(60, 179, 113, 0.2)'
       },
       {
-        label: 'Wind Speed',
+        label: 'Wind Speed in mph',
         data: windSpeed,
         fill: false,
         backgroundColor: 'rgb(50, 132, 255)',

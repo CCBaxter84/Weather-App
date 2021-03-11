@@ -2,6 +2,14 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { dateTimePrettier } from '../helpers.js';
 
+const StyledTable = styled.table`
+  --azalea: rgb(181, 25, 119);
+  background-color: white;
+  border: 2px solid var(--azalea);
+  border-radius: 5px;
+  margin: 5px;
+`;
+
 const TableField = styled.th`
   color: blue;
 `;
@@ -15,10 +23,9 @@ const Input = styled.input`
   width: 25px;
 `;
 
-function Table({ entry, setField }) {
-
+function Table({ entry, setField, error }) {
   return (
-    <table>
+    <StyledTable>
       <tbody>
         <tr>
           <TableField>Temperature</TableField>
@@ -65,12 +72,14 @@ function Table({ entry, setField }) {
           <TableData>{dateTimePrettier(entry.dateTime)}</TableData>
         </tr>
       </tbody>
-    </table>
+    </StyledTable>
   );
 }
 
 Table.propTypes = {
-  entry: PropTypes.object
+  entry: PropTypes.object,
+  setField: PropTypes.func,
+  error: PropTypes.string
 }
 
 export default Table;
