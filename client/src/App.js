@@ -1,7 +1,7 @@
 import { useReducer, useEffect, useState } from 'react';
 import axios from 'axios';
 import { isANumber, formatCityForUI } from './helpers.js';
-import { reducer1, reducer2 } from './reducers.js';
+import { reducer, reducer2 } from './reducers.js';
 import Header from './components/Header';
 import Pages from './components/Pages';
 import Track from './components/Track';
@@ -15,7 +15,7 @@ const initialState = {
 
 function App() {
   // Reducers and State
-  const [ data, dispatch ] = useReducer(reducer1, []);
+  const [ data, dispatch ] = useReducer(reducer, []);
   const [ currentLocation, dispatch2 ] = useReducer(reducer2, initialState)
   const [ showModal, setShowModal ] = useState(false);
   const [ error, setError ] = useState('');
