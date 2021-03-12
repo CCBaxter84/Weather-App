@@ -8,10 +8,11 @@ const Entry = require('../../models/entry.js');
 // @route   GET /entries/:city
 // @desc    Get all entries from database based off city
 // @access  Public
-router.get('/:city', async (req, res) => {
+router.get('/:city/:country', async (req, res) => {
   try {
     const city = req.params.city.toLowerCase();
-    const entries = await Entry.find({ city: city }).sort({ date: 1 });
+    const { country } = req.params;
+    const entries = await Entry.find({ city: city, country: country }).sort({ date: 1 });
     res.status(200).json(entries);
   } catch (error) {
     res.status(500).json({ msg: error });
@@ -22,12 +23,15 @@ router.get('/:city', async (req, res) => {
 // @desc    Add a new entry to the database
 // @access  Public
 router.post('/', async (req, res) => {
+  const state = req.body.state === '' ? 'N/A' : req.body.state;
   try {
     const newEntry = new Entry({
       temperature: req.body.temperature,
       feelsLike: req.body.feelsLike,
       humidity: req.body.humidity,
       city: req.body.city.toLowerCase(),
+      state: state.toLowerCase(),
+      country: req.body.country,
       windSpeed: req.body.windSpeed
     });
     const entry = await newEntry.save();

@@ -23,6 +23,7 @@ const Input = styled.input`
   width: 25px;
 `;
 
+// Use set Field helper function to provide capability to modify tracked weather data
 function Table({ entry, setField, error }) {
   return (
     <StyledTable>
@@ -77,9 +78,9 @@ function Table({ entry, setField, error }) {
 }
 
 Table.propTypes = {
-  entry: PropTypes.object,
-  setField: PropTypes.func,
-  error: PropTypes.string
+  entry: PropTypes.object.isRequired,
+  setField: PropTypes.func.isRequired,
+  error: PropTypes.string.isRequired
 }
 
 export default Table;

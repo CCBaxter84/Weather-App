@@ -26,3 +26,13 @@ export const Title = styled.article`
   color: midnightblue;
   font-family: 'Open Sans', sans-serif;
 `;
+
+export const ErrorArticle = styled.article`
+  --azalea: rgb(181, 25, 119);
+  color: var(--azalea);
+  font-family: 'Roboto', sans-serif;
+`;
+
+export const Para = styled.p`
+  margin: 0;
+`;

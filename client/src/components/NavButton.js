@@ -11,8 +11,8 @@ function NavButton({ name, path }) {
 }
 
 NavButton.propTypes = {
-  name: PropTypes.string,
-  path: PropTypes.string
+  name: PropTypes.string.isRequired,
+  path: PropTypes.string.isRequired
 }
 
 export default NavButton;

@@ -1,72 +1,4 @@
 module.exports = {
-  reducer: (state, action) => {
-    let updatedState;
-    switch (action.type) {
-      case 'temperature':
-        updatedState = state.map(entry => {
-          if (action.id === entry._id) {
-            return {...entry, temperature: action.value};
-          }
-          return entry;
-        });
-        return updatedState;
-      case 'feelsLike':
-        updatedState = state.map(entry => {
-          if (action.id === entry._id) {
-            return { ...entry, feelsLike: action.value };
-          }
-          return entry;
-        });
-        return updatedState;
-      case 'humidity':
-        updatedState = state.map(entry => {
-          if (action.id === entry._id) {
-            return { ...entry, humidity: action.value };
-          }
-          return entry;
-        });
-        return updatedState;
-      case 'city':
-        updatedState = state.map(entry => {
-          if (action.id === entry._id) {
-            return { ...entry, city: action.value };
-          }
-          return entry;
-        });
-        return updatedState;
-      case 'windSpeed':
-        updatedState = state.map(entry => {
-          if (action.id === entry._id) {
-            return { ...entry, windSpeed: action.value };
-          }
-          return entry;
-        });
-        return updatedState;
-      case 'dateTime':
-        updatedState = state.map(entry => {
-          if (action.id === entry._id) {
-            return { ...entry, dateTime: action.value };
-          }
-          return entry;
-        });
-        return updatedState;
-      case 'setAll':
-        return action.value;
-      default:
-        return state;
-    }
-  },
-
-  hotOrCold: (temp, windSpeed) => {
-    if (temp < 50 && windSpeed > 5) {
-      return 'Wind Chill';
-    } else if (temp > 80) {
-      return 'Heat Index';
-    } else {
-      return 'Feels Like';
-    }
-  },
-
   dateTimePrettier: uglyDate => {
     const fullDate = new Date(uglyDate);
     const month = fullDate.getMonth() + 1;
@@ -97,115 +29,100 @@ module.exports = {
     return dataset.map(entry => entry[cat]);
   },
 
-  isANumber: input => {
-    return !isNaN( Number(input) );
-  },
+  dropdownOptions: [
+    { value: 'N/A', label: 'N/A' },
+    { value: 'Alabama', label: 'AL' },
+    { value: 'Alaska', label: 'AK' },
+    { value: 'Arizona', label: 'AZ' },
+    { value: 'Arkansas', label: 'AR' },
+    { value: 'California', label: 'CA' },
+    { value: 'Colorado', label: 'CO' },
+    { value: 'Connecticut', label: 'CT' },
+    { value: 'Delaware', label: 'DE' },
+    { value: 'Florida', label: 'FL' },
+    { value: 'Georgia', label: 'GA' },
+    { value: 'Hawaii', label: 'HI' },
+    { value: 'Idaho', label: 'ID' },
+    { value: 'Illinois', label: 'IL' },
+    { value: 'Indiana', label: 'IN' },
+    { value: 'Iowa', label: 'IA' },
+    { value: 'Kansas', label: 'KS' },
+    { value: 'Kentucky', label: 'KY' },
+    { value: 'Louisiana', label: 'LA' },
+    { value: 'Maine', label: 'ME' },
+    { value: 'Massachusetts', label: 'MA' },
+    { value: 'Maryland', label: 'MD' },
+    { value: 'Michigan', label: 'MI' },
+    { value: 'Minnesota', label: 'MN' },
+    { value: 'Mississippi', label: 'MS' },
+    { value: 'Missouri', label: 'MO' },
+    { value: 'Montana', label: 'MT' },
+    { value: 'Nebraska', label: 'NE' },
+    { value: 'Nevada', label: 'NV' },
+    { value: 'New Hampshire', label: 'NH' },
+    { value: 'New Jersey', label: 'NJ' },
+    { value: 'New Mexico', label: 'NM' },
+    { value: 'New York', label: 'NY' },
+    { value: 'North Carolina', label: 'NC' },
+    { value: 'North Dakota', label: 'ND' },
+    { value: 'Ohio', label: 'OH' },
+    { value: 'Oklahoma', label: 'OK' },
+    { value: 'Oregon', label: 'OR' },
+    { value: 'Pennsylvania', label: 'PA' },
+    { value: 'Rhode Island', label: 'RI' },
+    { value: 'South Carolina', label: 'SC' },
+    { value: 'South Dakota', label: 'SD' },
+    { value: 'Tennessee', label: 'TN' },
+    { value: 'Texas', label: 'TX' },
+    { value: 'Utah', label: 'UT' },
+    { value: 'Vermont', label: 'VT' },
+    { value: 'Virginia', label: 'VA' },
+    { value: 'Washington', label: 'WA' },
+    { value: 'West Virginia', label: 'WV' },
+    { value: 'Wisconsin', label: 'WI' },
+    { value: 'Wyoming', label: 'WY' },
+  ],
 
-  containsInvalidChars: input => {
-    const regex = /[^a-zA-Z,\s]/g;
-    return regex.test(input);
-  },
+  formatCityForAPI: (rawCity, state, country) => {
+    const formatCity = city => {
+      const callback = word => {
+        const trimmed = word.trim();
+        if (trimmed.length > 1) {
+          return trimmed[0].toUpperCase() + trimmed.slice(1).toLowerCase();
+        }
+        return trimmed;
 
-  formatCityForAPI: place => {
-    console.log(typeof place);
-    const stateDictionary = {
-      AL: 'Alabama',
-      AK: 'Alaska',
-      AZ: 'Arizona',
-      AR: 'Arkansas',
-      CA: 'California',
-      CO: 'Colorado',
-      CT: 'Connecticut',
-      DE: 'Delaware',
-      FL: 'Florida',
-      GA: 'Georgia',
-      HI: 'Hawaii',
-      ID: 'Idaho',
-      IL: 'Illinois',
-      IN: 'Indiana',
-      IA: 'Iowa',
-      KS: 'Kanasas',
-      KY: 'Kentucky',
-      LA: 'Louisiana',
-      ME: 'Maine',
-      MA: 'Massachusetts',
-      MI: 'Michigan',
-      MN: 'Minnesota',
-      MS: 'Mississippi',
-      MO: 'Missouri',
-      MT: 'Montana',
-      NE: 'Nebraska',
-      NV: 'Nevada',
-      NH: 'New Hampshire',
-      NJ: 'New Jersey',
-      NM: 'New Mexico',
-      NY: 'New York',
-      NC: 'North Carolina',
-      ND: 'North Dakota',
-      OH: 'Ohio',
-      OK: 'Oklahoma',
-      OR: 'Oregon',
-      PA: 'Pennsylvania',
-      RI: 'Rhode Island',
-      SC: 'South Carolina',
-      SD: 'South Dakota',
-      TN: 'Tennessee',
-      TX: 'Texas',
-      UT: 'Utah',
-      VT: 'Vermont',
-      VA: 'Virginia',
-      WA: 'Washington',
-      WV: 'West Virginia',
-      WI: 'Wisconsin',
-      WY: 'Wyoming'
-    }
-    const noWhiteSpace = place.replace(/\s+/g, '');
-    const arrayed = noWhiteSpace.split(',');
-    const city = arrayed[0].toLowerCase();
-
-    const formatState = rawState => {
-      let formattedState;
-      if ( stateDictionary[rawState.toUpperCase()] ) {
-        formattedState = stateDictionary[rawState.toUpperCase()];
-      } else {
-        formattedState = rawState;
       }
-      return formattedState.toLowerCase();
+      const callback2 = word => {
+        return word !== '';
+      }
+      return city.split(' ').map(callback).filter(callback2).join(' ');
     }
+    const city = formatCity(rawCity);
 
-    if (arrayed.length === 2) {
-      let state = formatState(arrayed[1]);
-      return `${city},${state}`;
-    } else if (arrayed.length === 3) {
-      let state = formatState(arrayed[1]);
-      return `${city},${state},${arrayed[2].toLowerCase()}`
+    if (country === 'United States') {
+      return `${city},us`;
     }
 
     return city;
   },
-  formatCityForUI: place => {
-    const arrayed = place.split(',');
-    const city = arrayed[0].toLowerCase().trim();
-    const formattedCity = city[0].toUpperCase() + city.slice(1);
+  formatCityForUI: (rawCity) => {
+    const formatCity = city => {
+      const callback = word => {
+        const trimmed = word.trim();
+        if (trimmed.length > 1) {
+          return trimmed[0].toUpperCase() + trimmed.slice(1).toLowerCase();
+        }
+        return trimmed;
 
-    const formatState = rawState => {
-      const trimmed = rawState.trim();
-      const isAbbrev = trimmed.length <= 3;
-      const fullName = trimmed.split(' ').map(word => {
-        return word[0].toUpperCase() + word.slice(1).toLowerCase();
-      }).join(' ');
-
-      const formattedState = isAbbrev ? trimmed.toUpperCase() : fullName;
-      return formattedState;
+      }
+      const callback2 = word => {
+        return word !== '';
+      }
+      return city.split(' ').map(callback).filter(callback2).join(' ');
     }
+    const city = formatCity(rawCity);
 
-    if (arrayed.length === 2) {
-      let state = formatState(arrayed[1]);
-      return `${formattedCity}, ${state}`;
-    } else if (arrayed.length === 3) {
-      let state = formatState(arrayed[1]);
-      return `${formattedCity}, ${state}, ${formatState(arrayed[2])}`
-    }
-    return formattedCity;
+    return city;
   }
 }

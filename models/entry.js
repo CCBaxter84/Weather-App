@@ -8,6 +8,14 @@ const entrySchema = new Schema({
     type: String,
     required: true
   },
+  state: {
+    type: String,
+    required: true
+  },
+  country: {
+    type: String,
+    required: true
+  },
   dateTime: {
     type: Date,
     default: Date.now

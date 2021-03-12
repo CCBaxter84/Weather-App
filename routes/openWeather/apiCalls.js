@@ -23,11 +23,10 @@ router.get('/:city', async (req, res) => {
       humidity: data.main.humidity,
       windSpeed: data.wind.speed,
       city: data.name
-
     }
     res.status(200).json({ data: usefulData });
   } catch (error) {
-    res.status(500).json({ msg:error });
+    res.status(404).json({ error: error, msg: 'No weather data available for city' });
   }
 });
 

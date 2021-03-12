@@ -4,7 +4,8 @@ import { Line } from 'react-chartjs-2';
 import { Container, Title } from '../sharedStyles.js';
 import { getWeatherCategory, dateTimePrettier } from '../helpers.js';
 
-function ChartView({ data, city }) {
+function ChartView({ data, currentLocation }) {
+  // Memoize chart data to reduce fn invocations when toggling between table and chart views
   const labels = useMemo(() => {
     const uglyLabels = getWeatherCategory('dateTime', data);
     const prettyLabels = uglyLabels.map(entry => dateTimePrettier(entry));
@@ -15,6 +16,7 @@ function ChartView({ data, city }) {
   const humidity = useMemo(() => getWeatherCategory('humidity', data), [data]);
   const windSpeed = useMemo(() => getWeatherCategory('windSpeed', data), [data]);
 
+  // Chart data and options to be rendered
   const chartData = {
     labels: labels,
     datasets: [
@@ -61,10 +63,11 @@ function ChartView({ data, city }) {
     }
   }
 
+  // Render the chart
   return (
     <Container>
       <Title>
-        <h2>{city} Weather</h2>
+        <h2>{currentLocation.currentCity} Weather</h2>
       </Title>
       <Line
         data={chartData}
@@ -77,8 +80,8 @@ function ChartView({ data, city }) {
 }
 
 ChartView.propTypes = {
-  data: PropTypes.array,
-  city: PropTypes.string
+  data: PropTypes.array.isRequired,
+  currentLocation: PropTypes.object.isRequired
 }
 
 export default ChartView;

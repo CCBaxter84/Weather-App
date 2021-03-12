@@ -4,32 +4,33 @@ import TableView from './TableView';
 import ChartView from './ChartView';
 import PropTypes from 'prop-types';
 
-function Pages({ data, setField, city, error }) {
+// Use React Router to render last button clicked in Header
+function Pages({ data, setField, currentLocation, error }) {
   return (
     <Switch>
       <Route exact path='/'>
-        <Home/>
+        <Home currentLocation={currentLocation} data={data}/>
       </Route>
       <Route exact path='/TableView'>
         <TableView
           data={data}
           setField={setField}
-          city={city}
+          currentLocation={currentLocation}
           error={error}
         />
       </Route>
       <Route exact path='/ChartView'>
-        {data.length > 0 ? <ChartView data={data} city={city}/> : '...Loading Chart'}
+        {data.length > 0 ? <ChartView data={data} currentLocation={currentLocation}/> : '...Loading Chart'}
       </Route>
     </Switch>
   );
 }
 
 Pages.propTypes = {
-  data: PropTypes.array,
-  setField: PropTypes.func,
-  city: PropTypes.string,
-  error: PropTypes.string
+  data: PropTypes.array.isRequired,
+  setField: PropTypes.func.isRequired,
+  currentLocation: PropTypes.object.isRequired,
+  error: PropTypes.string.isRequired
 }
 
 export default Pages;

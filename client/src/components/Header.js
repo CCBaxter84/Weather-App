@@ -7,7 +7,7 @@ const StyledHeader = styled.header`
   display: flex;
   justify-content: center;
 `;
-
+// Use React Router to toggle between pages
 function Header({ changeModal }) {
   return (
     <StyledHeader>
@@ -20,7 +20,7 @@ function Header({ changeModal }) {
 }
 
 Header.propTypes = {
-  changeModal: PropTypes.func
+  changeModal: PropTypes.func.isRequired
 }
 
 export default Header;
